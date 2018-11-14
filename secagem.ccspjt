@@ -1,0 +1,81 @@
+[PROJECT]
+Target=secagem.hex
+Processor_Text=PIC16F877A
+CCSVerions=5.081d
+Compiler=PCM
+CCSVersion=5.081d
+[Target Data]
+FileList=secagem.c
+[Directories]
+Include=
+[C:\Users\gabim\Desktop\Guina\ProjetoFinal\secagem]
+Type=4
+[mru-list]
+1=secagem.c
+
+[fileformats]
+forcecoff=0
+
+[ProjectLog]
+Days=2
+D1=13-11-2018
+D1_L=14
+D1_L1=[71706]Project Opened.
+D1_L2=[71710]Started Editing.
+D1_L3=[72008]Stopped Editing.
+TotalEdit=98
+TotalDebug=0
+D1_E=51
+D1_D=0
+D1_L4=[72008]Project Closed.
+D1_L5=[78432]Project Opened.
+D1_L6=[78937]Started Editing.
+D1_L7=[80154]Stopped Editing.
+D1_L8=[80674]Started Editing.
+D1_L9=[81642]Stopped Editing.
+D1_L10=[81663]Started Editing.
+D1_L11=[82228]Stopped Editing.
+D1_L12=[82882]Started Editing.
+D1_L13=[83775]Stopped Editing.
+D1_L14=[83775]Project Closed.
+D2=14-11-2018
+D2_L=22
+D2_L1=[33236]Project Opened.
+D2_L2=[33602]Started Editing.
+D2_L3=[34522]Stopped Editing.
+D2_L4=[34657]Started Editing.
+D2_L5=[34973]Stopped Editing.
+D2_L6=[37806]Started Editing.
+D2_L7=[38948]Stopped Editing.
+D2_L8=[38965]Started Editing.
+D2_L9=[40427]Stopped Editing.
+D2_L10=[41182]Started Editing.
+D2_L11=[41489]Stopped Editing.
+D2_L12=[41491]Started Editing.
+D2_L13=[41620]Stopped Editing.
+D2_E=47
+D2_D=0
+D2_L14=[41620]Project Closed.
+D2_L15=[60194]Project Opened.
+D2_L16=[60246]Started Editing.
+D2_L17=[60551]Stopped Editing.
+D2_L18=[61020]Started Editing.
+D2_L19=[62089]Stopped Editing.
+D2_L20=[62284]Started Editing.
+D2_L21=[62993]Stopped Editing.
+D2_L22=[63101]Started Editing.
+
+[Opened Files]
+1=secagem.c
+t1=1
+Count=2
+2=secagem.h
+t2=1
+[secagem.c]
+Type=4
+
+[defines]
+buildcount=75
+[Units]
+Count=1
+1=secagem (main)
