@@ -3,6 +3,7 @@
  <FRAME activewindow="0">
   <PLACEMENT>2c0000000200000003000000ffffffffffffffffffffffffffffffff8300000009000000d3040000cf020000</PLACEMENT>
   <WINDOW type="default" module="ISIS"/>
+  <WINDOW type="default" module="ARES"/>
  </FRAME>
  <MODULE name="VSMDEBUG">
   <PWI>
@@ -124,15 +125,17 @@
      <ITEM name="TopLineAddress">00000000</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="600" x="131" flags="0000802b" y="276" h="400" pid="1" iid="8">
+   <POPUP w="600" x="685" flags="0000802b" y="261" h="400" pid="1" iid="8">
     <PROPERTIES>
      <ITEM name="Breakpoint 0">"",004E,0000,CB12,D5CB,1
 </ITEM>
-     <ITEM name="Breakpoint 1">"",0217,0000,A06C,D5CB,1
+     <ITEM name="Breakpoint 1">"",0177,0000,6BA8,D5CB,1
 </ITEM>
-     <ITEM name="Breakpoint 2">"",0381,0000,7B2A,D5CB,1
+     <ITEM name="Breakpoint 2">"",03B5,0000,D616,D5CB,1
 </ITEM>
-     <ITEM name="Breakpoint 3">"",04DC,0000,E370,D5CB,-1
+     <ITEM name="Breakpoint 3">"",04D4,0000,963B,D5CB,-1
+</ITEM>
+     <ITEM name="Breakpoint 4">"",0519,0000,6F81,D5CB,-1
 </ITEM>
      <ITEM name="CaseSensitive">No</ITEM>
      <ITEM name="DISPADDRS">Yes</ITEM>
@@ -143,7 +146,7 @@
      <ITEM name="nBreakpoints">4</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="300" x="797" flags="0000000b" y="341" h="300" pid="2" iid="8">
+   <POPUP w="300" x="857" flags="0000000b" y="19" h="300" pid="2" iid="8">
     <PROPERTIES>
      <ITEM name="Address Column Width">94</ITEM>
      <ITEM name="AutoResize">No</ITEM>

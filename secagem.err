@@ -1,1 +1,4 @@
-Compiling C:\Users\gabim\Desktop\Guina\ProjetoFinal\secagem on 14-nov-18 at 17:41
+Compiling C:\Users\gabim\Desktop\Guina\ProjetoFinal\secagem on 17-nov-18 at 17:07
+*** Error 76 "secagem.c" Line 192(16,17): Expect ;
+      1 Errors,  0 Warnings.
+Build Failed.

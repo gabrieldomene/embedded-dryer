@@ -1,10 +1,10 @@
-F N "MAIN" 0 70 ""
-D G "__PCM__" 0 151 ""5.081d""
-D G "__DEVICE__" 0 151 "877"
-D G "__DATE__" 0 151 ""14-Nov-18""
-D G "__TIME__" 0 151 ""17:40:22""
-D G "_UNICODE" 0 151 ""?""
-D G "__EVAL" 0 151 ""?"" "Standard Header file for the PIC16F877A device ////////////////"
+F N "MAIN" 0 100 ""
+D G "__PCM__" 0 217 ""5.081d""
+D G "__DEVICE__" 0 217 "877"
+D G "__DATE__" 0 217 ""17-Nov-18""
+D G "__TIME__" 0 217 ""17:07:29""
+D G "_UNICODE" 0 217 ""?""
+D G "__EVAL" 0 217 ""?"" "Standard Header file for the PIC16F877A device ////////////////"
 c L "set_tris_a" 2 3 6 "FUNCTION"
 f N "set_tris_a" 2 37 ""
 v L "value" 2 37 "int8" `55 
@@ -1158,39 +1158,56 @@ C L "lcd_cursor_on" 3 2 1 "FUNCTION"
 C L "lcd_cursor_on" 3 2 1 "FUNCTION"
 V G "x" 0 3 "int8" `675 
 V G "y" 0 4 "int8" `676 
-V G "flag" 0 5 "int1" `677 
-V G "fire" 0 6 "int1" `678 
-V G "bomba" 0 7 "int1" `679 
-V G "alimento" 0 8 "int1" `680 
-F N "trata_ext" 0 10 ""
-F G "trata_ext" 0 11 "void()" `681 
-V L "c" 0 12 "int8" `682 
-C L "trata_ext" 0 13 1 "FUNCTION"
-C L "trata_ext" 0 13 1 "FUNCTION"
-F N "trata_t0" 0 27 ""
-F G "trata_t0" 0 28 "void()" `688 
-V L "valor" 0 30 "int8" `689 
-V L "c" 0 31 "int8" `690 
-C L "trata_t0" 0 13 1 "FUNCTION"
-C L "trata_t0" 0 13 1 "FUNCTION"
-C L "trata_t0" 0 13 1 "FUNCTION"
-C L "trata_t0" 0 13 2 "FUNCTION"
-C L "trata_t0" 0 13 1 "FUNCTION"
-C L "trata_t0" 0 13 1 "FUNCTION"
-C L "trata_t0" 0 13 1 "FUNCTION"
-F N "MAIN" 0 70 ""
-F G "MAIN" 0 71 "void()" `712 
-C L "MAIN" 0 13 1 "FUNCTION"
-C L "MAIN" 0 13 3 "FUNCTION"
-C L "MAIN" 0 13 1 "FUNCTION"
-C L "MAIN" 0 13 1 "FUNCTION"
-C L "MAIN" 0 13 1 "FUNCTION"
-V L "reserva" 0 89 "int1" `716 
-V L "safety" 0 90 "int1" `717 
-V L "temperatura" 0 91 "int8" `718 
-V L "c" 0 92 "int8" `719 
-C L "MAIN" 0 13 1 "FUNCTION"
-C L "MAIN" 0 13 1 "FUNCTION"
+V G "menu" 0 5 "int8" `677 
+V G "flag" 0 6 "int1" `678 
+V G "ventilador" 0 7 "int1" `679 
+V G "bomba" 0 8 "int1" `680 
+V G "alimento" 0 9 "int1" `681 
+F N "trata_ext" 0 11 ""
+F G "trata_ext" 0 12 "void()" `682 
+V L "c" 0 13 "int8" `683 
+C L "trata_ext" 0 14 1 "FUNCTION"
+C L "trata_ext" 0 14 1 "FUNCTION"
+F N "trata_t0" 0 28 ""
+F G "trata_t0" 0 29 "void()" `690 
+V L "valor" 0 30 "int8" `691 
+V L "c" 0 31 "int8" `692 
+C L "trata_t0" 0 14 1 "FUNCTION"
+C L "trata_t0" 0 14 2 "FUNCTION"
+C L "trata_t0" 0 14 1 "FUNCTION"
+C L "trata_t0" 0 14 1 "FUNCTION"
+C L "trata_t0" 0 14 2 "FUNCTION"
+C L "trata_t0" 0 14 1 "FUNCTION"
+C L "trata_t0" 0 14 2 "FUNCTION"
+C L "trata_t0" 0 14 2 "FUNCTION"
+C L "trata_t0" 0 14 2 "FUNCTION"
+F N "MAIN" 0 100 ""
+F G "MAIN" 0 101 "void()" `720 
+C L "MAIN" 0 14 1 "FUNCTION"
+C L "MAIN" 0 14 3 "FUNCTION"
+C L "MAIN" 0 14 1 "FUNCTION"
+C L "MAIN" 0 14 1 "FUNCTION"
+C L "MAIN" 0 14 1 "FUNCTION"
+V L "reserva" 0 124 "int1" `724 
+V L "safety" 0 125 "int1" `725 
+V L "temperatura" 0 126 "int8" `726 
+V L "c" 0 127 "int8" `727 
+C L "MAIN" 0 14 6 "FUNCTION"
+C L "MAIN" 0 14 1 "FUNCTION"
+C L "MAIN" 0 14 1 "FUNCTION"
+C L "MAIN" 0 14 2 "FUNCTION"
+C L "MAIN" 0 14 1 "FUNCTION"
+C L "MAIN" 0 14 1 "FUNCTION"
+C L "MAIN" 0 14 1 "FUNCTION"
+C L "MAIN" 0 14 1 "FUNCTION"
+C L "MAIN" 0 14 1 "FUNCTION"
+C L "MAIN" 0 14 1 "FUNCTION"
+C L "MAIN" 0 14 2 "FUNCTION"
+C L "MAIN" 0 14 1 "FUNCTION"
+C L "MAIN" 0 14 1 "FUNCTION"
+C L "MAIN" 0 14 1 "FUNCTION"
+C L "MAIN" 0 14 1 "FUNCTION"
+C L "MAIN" 0 14 1 "FUNCTION"
 F B "reset_cpu" 0 0
 F B "abs" 1 0
 F B "sleep" 0 0
