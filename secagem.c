@@ -1,151 +1,123 @@
+/* Aluno: Gabriel Assunção Domene
+   Disciplina: Microprocessadores e Microcontroladores
+   Professor: Roderval
+   Data: 22/11/2018
+   Projeto: Spray Dryer
+   Objetivo: Realizar o processo de secamento por atomização de produtos líquidos
+   utilizando o PIC 16F877A para o controle do sistema embarcado da máquina.
+   
+*/
+
+
 #include <secagem.h>
 #include <lcd.c>
-int x = 0;
-int y;
-int menu = 0;
+#FUSES WDT,PUT
+
 int1 flag;
 int1 ventilador = 1;
 int1 bomba = 1;
 int1 alimento;
+int temperatura;
 #int_ext
 void trata_ext()
 {
- char c;
+   //Interrupção de segurança
+   restart_wdt();
+   set_timer1(0);
+   char c;
    flag = 1;              // Vari?vel auxiliar para indicar que a int aconteceu 
    output_high(pin_c7);
    while(input(pin_b0)==0)
    {
+      restart_wdt();
+      set_timer1(0);
       c='\f';
       lcd_putc(c);
       
       printf(LCD_PUTC, "INTERRUPCAO");
       delay_ms(400);
+      output_low(pin_c3);
+      output_low(pin_c5);
+      output_low(pin_c6);
    }  //fica esperando mudar situa??o do bot?o da interrup.
     c='\f';
     lcd_putc(c);
 }
+
 #int_timer0
 void trata_t0()
 {  
-   int valor;
+   restart_wdt();
    char c;
-   menu++;
+   c='\f';
+   lcd_putc(c);
+
+   temperatura = LER_TEMPERATURA();
+   printf(LCD_PUTC, "TEMP = %u'",temperatura);
+   printf(LCD_PUTC, "\n ready");
+   
+   
    set_timer0(0);
-   //if(flag == 0){
-      switch(menu)
-      {
-         case 1://Mostra a temperatura do aquecedor NO LCD
-                                          //Limpa lcd
-               c='\f';
-               lcd_putc(c);
-                                          //Escolhe canal
-               set_adc_channel(0);        //Seta o canal AN0 com entrada anal?gica
-               delay_us(10);              //tempo necess?rio para o hardware ficar pronto
-                                          //Leitura analogica
-               valor = LER_TEMPERATURA();
-               
-               if(valor < 100)
-               {  
-                  printf(LCD_PUTC, "TEMP = %u' BAIXA",valor);
-                  delay_ms(500);
-               }else{
-                  //Escreve no LCD
-                  printf(LCD_PUTC, "TEMP = %u' OK",valor);
-                  delay_ms(500);
-               }
-               break;
-         case 2://Mostra informação a respeito do alimento a ser processado
-               //Limpa lcd
-               c='\f';
-               lcd_putc(c);
-               if(alimento == 0)
-               {
-                  printf(LCD_PUTC, "PRODUTO OK");
-                  delay_ms(500);
-               }else{
-                  printf(LCD_PUTC, "SEM PRODUTO");
-                  delay_ms(500);
-               }
-               break;
-         case 3://Mostra informação a respeito da bomba helicoidal
-               //Limpa lcd
-               c='\f';
-               lcd_putc(c);
-               if(bomba == 0)
-               {
-                  printf(LCD_PUTC, "BOMBA 1 ON");
-                  delay_ms(500);
-               }else{
-                  printf(LCD_PUTC, "BOMBA 1 OFF");
-                  delay_ms(500);
-               }
-               break;
-         case 4://Mostra informação a respeito do ventilador da câmara 1
-               //Limpa lcd
-               c='\f';
-               lcd_putc(c);
-               if(ventilador == 0)
-               {
-                  printf(LCD_PUTC, "VENTILADOR 1 ON");
-                  delay_ms(500);
-               }else{
-                  printf(LCD_PUTC, "VENTILADOR 1 OFF");
-                  delay_ms(500);
-               }
-               menu = 0;
-               break;
-      } 
-   //}
 }
+
 void main()
 {
+   //Setup inicial
    Port_b_pullups(true);
    set_tris_c(0B0000000);
    output_low(pin_b1);
    output_low(pin_c3);
    output_low(pin_c5);
    output_low(pin_c6);
+   //Iniciar LCD com mensagem
    lcd_init();
    printf(LCD_PUTC, "PROCESSO SPRAY");
-   delay_ms(2000);
+   delay_ms(1000);
+   
    setup_adc_ports(AN0);             //configura porta AN0 com entrada anal?gica
    setup_adc(ADC_CLOCK_INTERNAL);    //usar? o clock interno do AD(mais comum)
    
-   
-   //setup_timer_1(T1_INTERNAL);
-   //setup_timer_1(RTCC_DIV_8);
+   //Interrupções e timers
    setup_timer_0 ( RTCC_INTERNAL | RTCC_DIV_64 );  // timer0 com clock interno e dividido por 64
-   set_timer0(0);  // carrega o valor 131 no registrador do timer
+   set_timer0(0);  // carrega o valor 0 no registrador do timer
    enable_interrupts (global | int_timer0);
    enable_interrupts(int_ext);
    ext_int_edge(H_to_L);
-   //habilita as interrup??es
    
-   int1 reserva;
-   int1 safety;
-   int temperatura;
-   char c;
+   setup_wdt(WDT_2304MS);                                                        //Seta watch dog timer
    while(TRUE)
    {  
+      restart_wdt();
+      //Comando para leitura analogica
+      //set_adc_channel(0);        //Seta o canal AN0 com entrada anal?gica
+      //delay_us(10);              //tempo necess?rio para o hardware ficar pronto
+                                          //Leitura analogica
       // & bitwise retorna
       // && operador lógico de eq false/true
       //ALIMENTO PINO B1
       //BOMBA PINO B2
       //VENTILADOR PINO B3
-      //Verificar se existe alimento para prosseguir
+      //INTERRUPÇÃO PINO B0
+      //Verificar se existe alimento para prosseguir inicialmente, as outras são para alimentar o LCD a princípio
       alimento = input(pin_b1);
       delay_ms(250);
+      
+      //Primeira etapa para chave 1
       if((alimento == 0) && (flag == 0))
       {
-         //Checar se bomba está ligada
          bomba = input(pin_b2);
          delay_ms(250);
+         //Segunda etapa para chave 2
+         restart_wdt();
          if((alimento == 0) && (bomba == 0) && (flag == 0))
          {
-            
+            restart_wdt();
             ventilador = input(pin_b3);
+            delay_ms(250);
+            //Terceira etapa para chave 3
             if((alimento == 0) && (bomba == 0) && (ventilador == 0) && (flag == 0))
             {
+               restart_wdt();
                set_adc_channel(0);        //Seta o canal AN0 com entrada anal?gica
                delay_us(10);              //tempo necess?rio para o hardware ficar pronto
                                           //Leitura analogica
@@ -160,6 +132,7 @@ void main()
                //Espera atingir a temperatura mínima de processo
                while(temperatura < 100)
                {
+                  restart_wdt();
                   if(flag == 0)
                   {                  //Aquecendo vento
                      set_adc_channel(0);        //Seta o canal AN0 com entrada anal?gica
@@ -170,47 +143,65 @@ void main()
                      //Disco de RPM girando
                      output_high(pin_c4);
                   }else{
+                     
+                     output_low(pin_c7);
                      temperatura = 101;
                   }
                }
                //Apaga sinalização de temperatura baixa
                output_low(pin_c4);
                delay_ms(200);
-               if(flag == 0){
+               
+               //Verificação para ver se chaves não foram desligadas
+               alimento = input(pin_b1);
+               delay_ms(100);
+               bomba = input(pin_b2);
+               delay_ms(100);
+               restart_wdt();
+               ventilador = input(pin_b3);
+               //Inicio do bombeamento do produto 
+               if((flag == 0) && (alimento == 0) && (bomba == 0) && (ventilador == 0) ){
+                  restart_wdt();
                   //Inicia o transporte pela bomba helicoidal após temperatura correta
                   output_high(pin_c6);
                   delay_ms(500);
                   //Ate aqui todos requerimentos foram feitos para iniciar o processo!!
-                  delay_ms(5000);
+                  delay_ms(2000);
                   output_low(pin_c3);
                   output_low(pin_c5);
                   output_low(pin_c6);
                }else{
+               //Trata caso se não estiver ligado e/ou interrupção
                  output_low(pin_c3);
                   output_low(pin_c5);
-                  output_low(pin_c6) 
+                  output_low(pin_c6);
+                  output_low(pin_c7);
+                  
                }
             }else{
+            //Voltando da interrupção, apaga por segurança
                output_low(pin_c3);
                output_low(pin_c5);
-               output_low(pin_c6);
+               output_low(pin_c6);  
+               output_low(pin_c7);
+               
             }
             
          }else{
+         //Voltando da interrupção, apaga por segurança
             output_low(pin_c3);
             output_low(pin_c5);
-            output_low(pin_c6);
-            delay_ms(500);
+            output_low(pin_c6); 
+            output_low(pin_c7);
          }
       }else{//Limpa interrupção e inicia o processo novamente
          output_low(pin_c3);
          output_low(pin_c5);
          output_low(pin_c6);
-         
-         output_low(pin_c7);
          flag = 0;
-         delay_ms(1000);
+         output_low(pin_c7);
       }
+      delay_ms(1000);
    }
 
 }
